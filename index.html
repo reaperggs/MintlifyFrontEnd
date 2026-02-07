@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mintlify - The Intelligent Documentation Platform</title>
+    <style>
+        :root {
+            --bg-body: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #16a34a;
+            --primary-dark: #15803d;
+            --accent-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --nav-height: 70px;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --max-width: 1200px;
+            --radius-btn: 999px;
+            --radius-card: 16px;
+        }
+
+        .dark-section {
+            background-color: #0b1120;
+            color: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .gap-2 {
+            gap: 8px;
+        }
+
+        .gap-4 {
+            gap: 16px;
+        }
+
+        .gap-6 {
+            gap: 24px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+        }
+
+        .dark-section .text-muted {
+            color: #94a3b8;
+        }
+
+        .text-primary {
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border-radius: var(--radius-btn);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            border-color: #cbd5e1;
+            background-color: #f1f5f9;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background-color: #f0fdf4;
+            color: var(--primary-dark);
+            border: 1px solid #dcfce7;
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--primary);
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .py-12 {
+            padding-top: 48px;
+            padding-bottom: 48px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            height: var(--nav-height);
+        }
+
+        .nav-inner {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #0f172a;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-bottom-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        @media (min-width: 900px) {
+            .nav-links {
+                display: flex;
+                gap: 32px;
+            }
+        }
+
+        .hero {
+            padding-top: 80px;
+            padding-bottom: 60px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.75rem;
+            line-height: 1.15;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+            color: #0f172a;
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-visual {
+            margin-top: 40px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            background: #fff;
+            position: relative;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 500px;
+            background-image: linear-gradient(135deg, #f8fafc 25%, #fff 25%, #fff 50%, #f8fafc 50%, #f8fafc 75%, #fff 75%, #fff 100%);
+            background-size: 40px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mock-ui-sidebar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 200px;
+            background: #f8fafc;
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+        }
+
+        .mock-line {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .w-50 {
+            width: 50%;
+        }
+
+        .w-70 {
+            width: 70%;
+        }
+
+        .w-40 {
+            width: 40%;
+        }
+
+        .mock-content {
+            margin-left: 200px;
+            padding: 40px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .mock-title {
+            height: 24px;
+            background: #cbd5e1;
+            width: 60%;
+            border-radius: 6px;
+            margin-bottom: 24px;
+        }
+
+        .mock-para {
+            height: 12px;
+            background: #e2e8f0;
+            width: 90%;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .logo-cloud {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .logo-cloud p {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 32px;
+        }
+
+        .logo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            opacity: 0.6;
+            filter: grayscale(100%);
+        }
+
+        .company-logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-card);
+            padding: 32px;
+            transition: transform 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: #f0fdf4;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .split-feature {
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+            align-items: center;
+            margin: 100px 0;
+        }
+
+        @media (min-width: 900px) {
+            .split-feature {
+                flex-direction: row;
+            }
+
+            .split-feature.reverse {
+                flex-direction: row-reverse;
+            }
+
+            .split-text {
+                width: 45%;
+            }
+
+            .split-visual {
+                width: 50%;
+            }
+        }
+
+        .split-text h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .split-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .split-visual {
+            background: #f1f5f9;
+            border-radius: 20px;
+            aspect-ratio: 4/3;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .cta-section {
+            background-color: #0b1120;
+            color: white;
+            padding: 80px 24px;
+            border-radius: 24px;
+            text-align: center;
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        footer {
+            background: #fff;
+            border-top: 1px solid var(--border-color);
+            padding: 80px 0 40px;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-top {
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+            }
+        }
+
+        .footer-col h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col a {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .footer-col a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container nav-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon"></div>
+                Mintlify
+            </a>
+
+            <nav class="nav-links">
+                <a href="#">Resources</a>
+                <a href="#">Documentation</a>
+                <a href="#">Customers</a>
+                <a href="#">Pricing</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <a href="#" class="text-sm font-medium text-muted" style="display:none;">Contact Sales</a>
+                <a href="#" class="text-sm font-medium text-muted">Sign In</a>
+                <a href="#" class="btn btn-primary text-sm">Start for free</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="container" style="padding-top: 80px; padding-bottom: 40px;">
+            <div class="hero">
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    <span>New: Self-updating docs with agent suggestions</span>
+                </div>
+
+                <h1>The Intelligent Knowledge Platform</h1>
+                <p>Helping teams create and maintain world-class documentation built for both humans and AI.</p>
+
+                <div class="flex justify-center gap-4">
+                    <a href="#" class="btn btn-primary" style="padding: 12px 32px;">Start now</a>
+                    <a href="#" class="btn btn-outline" style="padding: 12px 32px;">Get a demo</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="mock-ui-sidebar">
+                    <div class="mock-line w-70"></div>
+                    <div class="mock-line w-50" style="margin-top: 20px"></div>
+                    <div class="mock-line w-40"></div>
+                    <div class="mock-line w-50"></div>
+                </div>
+                <div class="mock-content">
+                    <div class="mock-title"></div>
+                    <div class="mock-para"></div>
+                    <div class="mock-para"></div>
+                    <div class="mock-para w-70"></div>
+
+                    <div
+                        style="margin-top: 40px; background: #0f172a; padding: 20px; border-radius: 8px; color: #a5b4fc; font-family: monospace; font-size: 0.9rem;">
+                        <div>$ npm install mintlify</div>
+                        <div style="color: #4ade80; margin-top: 8px;">> Mintlify installed successfully.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="logo-cloud container">
+            <p>Trusted by innovative teams</p>
+            <div class="logo-grid">
+                <div class="company-logo">ANTHROPIC</div>
+                <div class="company-logo">Coinbase</div>
+                <div class="company-logo">Zapier</div>
+                <div class="company-logo">Perplexity</div>
+                <div class="company-logo">Vercel</div>
+            </div>
+        </section>
+
+        <section class="container section-padding">
+            <div class="text-center" style="max-width: 700px; margin: 0 auto 60px;">
+                <h2 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 16px;">Built for the intelligence age
+                </h2>
+                <p class="text-muted text-lg">Integrate AI into every part of your docs lifecycle. Woven into how your
+                    knowledge is written, maintained, and understood.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">#</div>
+                    <h3 class="feature-title">Beautiful by default</h3>
+                    <p class="feature-desc">Documentation that looks great out of the box. Designed to be readable and
+                        accessible.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">#</div>
+                    <h3 class="feature-title">AI-Native</h3>
+                    <p class="feature-desc">Self-updating knowledge management that helps you draft and edit content
+                        faster.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">#
+                    </div>
+                    <h3 class="feature-title">Insightful Analytics</h3>
+                    <p class="feature-desc">Understand how users are engaging with your content to improve your
+                        documentation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container split-feature">
+            <div class="split-text">
+                <div
+                    style="color: var(--primary); font-weight: 600; margin-bottom: 8px; text-transform: uppercase; font-size: 0.85rem;">
+                    Assistant</div>
+                <h2>Intelligent assistance for your users</h2>
+                <p>Turn every documentation visit into a guided conversation. Your AI assistant understands context and
+                    delivers exactly what users need, when they need it.</p>
+                <a href="#" style="color: var(--primary); font-weight: 600;">Explore Assistant →</a>
+            </div>
+            <div class="split-visual">
+                <img src="image.png" alt="enterprise-img">
+            </div>
+        </section>
+
+        <section class="container split-feature reverse">
+            <div class="split-text">
+                <div
+                    style="color: var(--primary); font-weight: 600; margin-bottom: 8px; text-transform: uppercase; font-size: 0.85rem;">
+                    Global Scale</div>
+                <h2>Bring intelligence to enterprise knowledge</h2>
+                <p>Modernize without the rebuild. Get enterprise-grade professional service, security, and compliant
+                    infrastructure from day one.</p>
+                <ul style="margin-top: 20px; display: flex; flex-direction: column; gap: 12px;">
+                    <li class="flex items-center gap-2 text-muted"><span style="color: var(--primary);">✓</span> SOC 2
+                        Type II Certified</li>
+                    <li class="flex items-center gap-2 text-muted"><span style="color: var(--primary);">✓</span>
+                        SAML-based SSO</li>
+                    <li class="flex items-center gap-2 text-muted"><span style="color: var(--primary);">✓</span> Custom
+                        SLAs</li>
+                </ul>
+            </div>
+            <div class="split-visual">
+                <img src="image.png" alt="enterprise-img">
+            </div>
+        </section>
+
+        <div class="container">
+            <section class="cta-section">
+                <h2>Make documentation your winning advantage</h2>
+                <p>Join the leaders of tomorrow to future proof your documentation today.</p>
+                <div class="flex justify-center gap-4">
+                    <a href="#" class="btn" style="background: white; color: #0f172a;">Get started for free</a>
+                    <a href="#" class="btn btn-outline"
+                        style="color: white; border-color: rgba(255,255,255,0.2);">Contact sales</a>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-col">
+                    <a href="#" class="logo" style="margin-bottom: 16px;">
+                        <div class="logo-icon" style="width: 20px; height: 20px;"></div>
+                        Mintlify
+                    </a>
+                    <p class="text-muted text-sm" style="max-width: 300px;">
+                        The intelligent documentation platform that grows with your team.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Components</a></li>
+                        <li><a href="#">Changelog</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Customers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 Mintlify, Inc. All rights reserved.</div>
+                <div class="flex gap-4">
+                    <a href="#">Twitter</a>
+                    <a href="#">GitHub</a>
+                    <a href="#">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
